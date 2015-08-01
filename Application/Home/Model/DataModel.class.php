@@ -26,7 +26,7 @@ class DataModel extends Model {
 		$res = $this->where('api_id=%d',array($id))->order('timestamp desc')->limit($limit)->select();
 		$latestResult = $res[0];
 		$APIModel = D('API');
-		$APIModel->incTriggerCount($id);
+		$APIModel->incTriggerCount($id);//触发次数更新
 		$oldTimestamp = strtotime($latestResult['timestamp']);
 		$nowTimestamp = time();
 		$expires = json_decode($APIModel->getAPIInfo($id)['info'], true)['expires'];
