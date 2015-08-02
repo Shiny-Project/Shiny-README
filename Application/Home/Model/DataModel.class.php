@@ -15,14 +15,22 @@ class DataModel extends Model {
 	* Model - Data - getEventByID
 	*/
 	public function getEventByID($id){
-		$res = $this->where('id=%d',array($id))->find();
+		if (is_array($id)){
+			$map = array();
+			$map['id'] = array('IN', $id);
+			$res = $this->where($map)->select();
+		}
+		else{
+			$res = $this->where('id=%d',array($id))->find();
+		}
+		
 		return $res;
 	}
 	/**
 	* Model - Data - getEventByAPIID
 	* 根据 API ID 查询数据
 	*/
-	public function getEventByAPIID($id, $params = array(), $limit = 20){
+	public function getEventByAPIID($id, $limit = 20){
 		$res = $this->where('api_id=%d',array($id))->order('timestamp desc')->limit($limit)->select();
 		$latestResult = $res[0];
 		$APIModel = D('API');
@@ -36,6 +44,10 @@ class DataModel extends Model {
 			$jobModel->addJob($id);
 		}
 		return $res;
+	}
+
+	public function getNewestEventByAPIID($id, $params = array()){
+		return $this->getEventByAPIID($id, $params)[0];
 	}
 
 
