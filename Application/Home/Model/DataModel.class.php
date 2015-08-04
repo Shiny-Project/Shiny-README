@@ -13,6 +13,7 @@ class DataModel extends Model {
 
 	/**
 	* Model - Data - getEventByID
+	* 根据 Event ID 查询信息
 	*/
 	public function getEventByID($id){
 		if (is_array($id)){
@@ -45,9 +46,12 @@ class DataModel extends Model {
 		}
 		return $res;
 	}
-
-	public function getNewestEventByAPIID($id, $params = array()){
-		return $this->getEventByAPIID($id, $params)[0];
+	/**
+	* Model - Data - getNewestEventByAPIID
+	* 根据 API ID 查询最新数据
+	*/
+	public function getNewestEventByAPIID($id){
+		return $this->getEventByAPIID($id)[0];
 	}
 
 

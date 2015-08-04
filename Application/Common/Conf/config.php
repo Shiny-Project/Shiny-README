@@ -7,5 +7,5 @@ return array(
 	'DB_PWD'           =>'',
 	'DB_NAME'          =>'mirai',
 	'DB_TYPE'          =>'mysql',
-	'CONTROLLER_LEVEL' =>  2
+	'CONTROLLER_LEVEL' =>  3
 );
