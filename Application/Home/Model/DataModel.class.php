@@ -32,26 +32,33 @@ class DataModel extends Model {
 	* 根据 API ID 查询数据
 	*/
 	public function getEventByAPIID($id, $limit = 20){
-		$res = $this->where('api_id=%d',array($id))->order('timestamp desc')->limit($limit)->select();
-		$latestResult = $res[0];
+		$result = $this->where('api_id=%s',array($id))->order('timestamp desc')->limit($limit)->select();
 		$APIModel = D('API');
 		$APIModel->incTriggerCount($id);//触发次数更新
-		$oldTimestamp = strtotime($latestResult['timestamp']);
-		$nowTimestamp = time();
-		$expires = json_decode($APIModel->getAPIInfo($id)['info'], true)['expires'];
-		if ($nowTimestamp - $oldTimestamp > $expires){
-			//数据过期 更新!
-			$jobModel = D('Job');
-			$jobModel->addJob($id);
-		}
-		return $res;
+		return $result;
 	}
 	/**
 	* Model - Data - getNewestEventByAPIID
 	* 根据 API ID 查询最新数据
 	*/
 	public function getNewestEventByAPIID($id){
-		return $this->getEventByAPIID($id)[0];
+        $APIModel = D('API');
+        $result = $this->getEventByAPIID($id)[0];
+        $oldTimestamp = strtotime($result['timestamp']);
+		$nowTimestamp = time();
+        $expires = json_decode($APIModel->getAPIInfo($id)['info'], true)['expires'];
+        $status = 'success';
+		if ($nowTimestamp - $oldTimestamp > $expires){
+			//数据过期 更新!
+            $status = 'pending_refresh';
+			$jobModel = D('Job');
+			$jobModel->addJob($id);
+		}
+        $data = [
+            'status' => $status,
+            'data' => json_decode($result['data'], true)
+        ];
+		return $data;
 	}
 
 
