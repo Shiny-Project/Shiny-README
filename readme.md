@@ -48,7 +48,7 @@ sudo apt-get install mariadb-server
 ```bash
 git clone https://github.com/Last-Order/Mirai-spider
 cd Mirai-spider
-python -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 2. 安装Mika
