@@ -17,7 +17,7 @@ Web服务 - Shiny (Node.js)
 
 ### 首先需要安装
 1. Node.js 6.0+
-2. Python 3.4+
+2. Python 3.5+
 3. MariaDB 10.1 / MySQL
 
 以Ubuntu 14.04 LTS为例详细说明如下：
@@ -30,10 +30,16 @@ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | 
 nvm install 6.4.0
 ```
 
-2. Python3系统自带，但仍需安装pip
+2. Python3.5+
+
+系统自带的Python是3.4版本，需要再安装3.5+版本。
+
+此处使用Pyenv
 
 ```bash
-sudo apt-get install python3-pip
+curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
+apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils
+pyenv install 3.5.2 # 可能需要重启生效
 ```
 
 3. 安装MariaDB
