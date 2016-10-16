@@ -8,11 +8,11 @@
 
 本项目由三部分组成。
 
-采集部分 - Mirai (Python)
+采集部分 - [Mirai](https://github.com/Shiny-Project/Mirai) (Python)
 
-中央控制 - Mika (Node.js)
+中央控制 - [Mika](https://github.com/Shiny-Project/Mika) (Node.js)
 
-Web服务 - Shiny (Node.js)
+Web服务 - [Shiny](https://github.com/Shiny-Project/Shiny) (Node.js)
 
 
 ### 首先需要安装
