@@ -52,7 +52,7 @@ sudo apt-get install mariadb-server
 1. 安装Mirai
 
 ```bash
-git clone https://github.com/Last-Order/Mirai-spider
+git clone https://github.com/Shiny-Project/Mirai-spider
 cd Mirai-spider
 python3 -m pip install -r requirements.txt
 ```
@@ -60,7 +60,7 @@ python3 -m pip install -r requirements.txt
 2. 安装Mika
 
 ```bash
-git clone https://github.com/Last-Order/Mika
+git clone https://github.com/Shiny-Project/Mika
 cd Mika
 npm install
 ```
@@ -69,7 +69,7 @@ npm install
 
 ```bash
 npm install -g sails
-git clone https://github.com/Last-Order/Shiny
+git clone https://github.com/Shiny-Project/Shiny
 cd Shiny
 npm install
 ```
