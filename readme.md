@@ -1,8 +1,10 @@
-# Mirai
+# Shiny
+
+Shiny (di**S**tributed **H**ighly **I**nstant **N**otification s**Y**stem，分布式高度即时通知系统)
 
 ## 项目简介
 
-这是一个自用项目。暂不说明。
+本项目采用分布式爬虫+中央控制系统，利用 Websocket 等技术提供高度即时的信息聚合及推送服务。
 
 ## 部署说明
 
