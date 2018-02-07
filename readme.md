@@ -6,101 +6,10 @@ Shiny (di**S**tributed **H**ighly **I**nstant **N**otification s**Y**stem，分�
 
 本项目采用分布式爬虫+中央控制系统，利用 Websocket 等技术提供高度即时的信息聚合及推送服务。
 
-## 部署说明
+## 项目原理
 
-本项目由三部分组成。
+本项目含一个中央控制节点（Node.js，下称作中控），若干爬虫结点（Python，下称爬虫）以及一个消息转发结点（Node.js，下称转发）。
 
-采集部分 - [Mirai](https://github.com/Shiny-Project/Mirai) (Python)
+爬虫结点定时向中控结点请求任务数据，中控结点根据刷新时间等因素下发任务交由爬虫执行，爬虫将结果回报。如果有新的内容，中控将把消息交由转发结点下发给用户。
 
-中央控制 - [Mika](https://github.com/Shiny-Project/Mika) (Node.js)
-
-Web服务 - [Shiny](https://github.com/Shiny-Project/Shiny) (Node.js)
-
-
-### 首先需要安装
-1. Node.js 6.0+
-2. Python 3.5+
-3. MariaDB 10.1 / MySQL
-
-以Ubuntu 14.04 LTS为例详细说明如下：
-
-#### 安装运行环境
-1. 安装Node.js
-
-```bash
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.4/install.sh | bash # 安装nvm
-nvm install 6.4.0
-```
-
-2. Python3.5+
-
-系统自带的Python是3.4版本，需要再安装3.5+版本。
-
-此处使用Pyenv
-
-```bash
-curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils
-pyenv install 3.5.2 # 可能需要重启生效
-```
-
-3. 安装MariaDB
-```bash
-sudo apt-get install mariadb-server
-```
-
-#### 下载程序安装依赖
-
-1. 安装Mirai
-
-```bash
-git clone https://github.com/Shiny-Project/Mirai-spider
-cd Mirai-spider
-python3 -m pip install -r requirements.txt
-```
-
-2. 安装Mika
-
-```bash
-git clone https://github.com/Shiny-Project/Mika
-cd Mika
-npm install
-```
-
-3. 安装Shiny
-
-```bash
-npm install -g sails
-git clone https://github.com/Shiny-Project/Shiny
-cd Shiny
-npm install
-```
-
-#### 配置
-
-1. 修改`./Shiny/config/env/development.js`中的数据库相关设置。
-2. 修改`./Mika/Main.js`中的监听端口设置。
-3. 修改`./Mirai-spider/core/config.py`中的数据和端口设定。
-4. 修改`.Shiny/assets/Main.js` 10行附近的socket连接参数。
-
-#### 启动
-
-建议先启动Mika。
-
-```bash
-cd Mika
-node Main.js
-```
-
-再启动Mirai
-
-```bash
-cd Mirai
-python3 Main.py ignite
-```
-
-再启动Shiny
-```bash
-cd Shiny
-sails lift
-```
+其中中控向转发和转发到用户是采用 Websocket 的，一般在 10s 之内可以下发到用户。
