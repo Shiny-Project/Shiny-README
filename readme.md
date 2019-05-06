@@ -14,6 +14,12 @@ Shiny (di**S**tributed **H**ighly **I**nstant **N**otification s**Y**stem，分�
 
 其中中控向转发和转发到用户是采用 Websocket 的，一般在 10s 之内可以下发到用户。
 
+当前架构示意图
+
+<p align="center"> 
+  <img src="https://i.loli.net/2019/05/06/5cd0184998cba.png" >
+</p>
+
 ## 服务
 
 目前，本项目对外采用微博（@闪耀推送）对国内外自然灾害及其预警信息进行速报发布。对内发布更多内容，包括 YouTube 订阅等。
